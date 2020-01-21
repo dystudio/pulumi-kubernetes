@@ -4204,6 +4204,8 @@ export namespace apps {
     /**
      * Deployment enables declarative updates for Pods and ReplicaSets.
      * 
+     * @deprecated apps/v1beta1/Deployment is deprecated by apps/v1/Deployment and not supported by
+     * Kubernetes v1.16+ clusters.
      */
     export interface Deployment {
       /**
@@ -4969,6 +4971,8 @@ export namespace apps {
     /**
      * DaemonSet represents the configuration of a daemon set.
      * 
+     * @deprecated apps/v1beta2/DaemonSet is deprecated by apps/v1/DaemonSet and not supported by
+     * Kubernetes v1.16+ clusters.
      */
     export interface DaemonSet {
       /**
@@ -5200,6 +5204,8 @@ export namespace apps {
     /**
      * Deployment enables declarative updates for Pods and ReplicaSets.
      * 
+     * @deprecated apps/v1beta2/Deployment is deprecated by apps/v1/Deployment and not supported by
+     * Kubernetes v1.16+ clusters.
      */
     export interface Deployment {
       /**
@@ -5437,6 +5443,8 @@ export namespace apps {
     /**
      * ReplicaSet ensures that a specified number of pod replicas are running at any given time.
      * 
+     * @deprecated apps/v1beta2/ReplicaSet is deprecated by apps/v1/ReplicaSet and not supported by
+     * Kubernetes v1.16+ clusters.
      */
     export interface ReplicaSet {
       /**
@@ -10633,8 +10641,8 @@ export namespace core {
        * probes are executed until this completes successfully. If this probe fails, the Pod will be
        * restarted, just as if the livenessProbe failed. This can be used to provide different probe
        * parameters at the beginning of a Pod's lifecycle, when it might take a long time to load
-       * data or warm a cache, than during steady-state operation. This cannot be updated. This is
-       * an alpha feature enabled by the StartupProbe feature flag. More info:
+       * data or warm a cache, than during steady-state operation. This cannot be updated. This is a
+       * beta feature enabled by the StartupProbe feature flag. More info:
        * https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
        */
       startupProbe?: pulumi.Input<core.v1.Probe>
@@ -17031,6 +17039,8 @@ export namespace extensions {
     /**
      * DaemonSet represents the configuration of a daemon set.
      * 
+     * @deprecated extensions/v1beta1/DaemonSet is deprecated by apps/v1/DaemonSet and not supported
+     * by Kubernetes v1.16+ clusters.
      */
     export interface DaemonSet {
       /**
@@ -17268,6 +17278,8 @@ export namespace extensions {
     /**
      * Deployment enables declarative updates for Pods and ReplicaSets.
      * 
+     * @deprecated extensions/v1beta1/Deployment is deprecated by apps/v1/Deployment and not
+     * supported by Kubernetes v1.16+ clusters.
      */
     export interface Deployment {
       /**
@@ -18329,6 +18341,8 @@ export namespace extensions {
     /**
      * ReplicaSet ensures that a specified number of pod replicas are running at any given time.
      * 
+     * @deprecated extensions/v1beta1/ReplicaSet is deprecated by apps/v1/ReplicaSet and not
+     * supported by Kubernetes v1.16+ clusters.
      */
     export interface ReplicaSet {
       /**
@@ -18897,8 +18911,8 @@ export namespace flowcontrol {
       /**
        * `matchingPrecedence` is used to choose among the FlowSchemas that match a given request.
        * The chosen FlowSchema is among those with the numerically lowest (which we take to be
-       * logically highest) MatchingPrecedence.  Each MatchingPrecedence value must be non-negative.
-       * Note that if the precedence is not specified or zero, it will be set to 1000 as default.
+       * logically highest) MatchingPrecedence.  Each MatchingPrecedence value must be ranged in
+       * [1,10000]. Note that if the precedence is not specified, it will be set to 1000 as default.
        */
       matchingPrecedence?: pulumi.Input<number>
 
@@ -20210,19 +20224,21 @@ export namespace meta {
 export namespace networking {
   export namespace v1 {
     /**
-     * IPBlock describes a particular CIDR (Ex. "192.168.1.1/24") that is allowed to the pods
-     * matched by a NetworkPolicySpec's podSelector. The except entry describes CIDRs that should
-     * not be included within this rule.
+     * IPBlock describes a particular CIDR (Ex. "192.168.1.1/24","2001:db9::/64") that is allowed to
+     * the pods matched by a NetworkPolicySpec's podSelector. The except entry describes CIDRs that
+     * should not be included within this rule.
      */
     export interface IPBlock {
       /**
-       * CIDR is a string representing the IP Block Valid examples are "192.168.1.1/24"
+       * CIDR is a string representing the IP Block Valid examples are "192.168.1.1/24" or
+       * "2001:db9::/64"
        */
       cidr: pulumi.Input<string>
 
       /**
        * Except is a slice of CIDRs that should not be included within an IP Block Valid examples
-       * are "192.168.1.1/24" Except values will be rejected if they are outside the CIDR range
+       * are "192.168.1.1/24" or "2001:db9::/64" Except values will be rejected if they are outside
+       * the CIDR range
        */
       except?: pulumi.Input<pulumi.Input<string>[]>
 
@@ -22267,11 +22283,10 @@ export namespace rbac {
 
       /**
        * NonResourceURLs is a set of partial urls that a user should have access to.  *s are
-       * allowed, but only as the full, final step in the path This name is intentionally different
-       * than the internal type so that the DefaultConvert works nicely and because the ordering may
-       * be different. Since non-resource URLs are not namespaced, this field is only applicable for
-       * ClusterRoles referenced from a ClusterRoleBinding. Rules can either apply to API resources
-       * (such as "pods" or "secrets") or non-resource URL paths (such as "/api"),  but not both.
+       * allowed, but only as the full, final step in the path Since non-resource URLs are not
+       * namespaced, this field is only applicable for ClusterRoles referenced from a
+       * ClusterRoleBinding. Rules can either apply to API resources (such as "pods" or "secrets")
+       * or non-resource URL paths (such as "/api"),  but not both.
        */
       nonResourceURLs?: pulumi.Input<pulumi.Input<string>[]>
 
@@ -24127,9 +24142,6 @@ export namespace storage {
 
 
     /**
-     * @deprecated storage/v1beta1/CSINode is deprecated by storage/v1beta1/CSINode and not
-     * supported by Kubernetes v<nil>+ clusters.
-     * 
      * CSINode holds information about all CSI drivers installed on a node. CSI drivers do not need
      * to create the CSINode object directly. As long as they use the node-driver-registrar sidecar
      * container, the kubelet will automatically populate the CSINode object for the CSI driver as

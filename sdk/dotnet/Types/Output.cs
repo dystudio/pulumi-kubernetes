@@ -14660,7 +14660,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core
         /// be restarted, just as if the livenessProbe failed. This can be used to provide different
         /// probe parameters at the beginning of a Pod's lifecycle, when it might take a long time
         /// to load data or warm a cache, than during steady-state operation. This cannot be
-        /// updated. This is an alpha feature enabled by the StartupProbe feature flag. More info:
+        /// updated. This is a beta feature enabled by the StartupProbe feature flag. More info:
         /// https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
         /// </summary>
       public readonly Core.V1.Probe StartupProbe;
@@ -26092,9 +26092,9 @@ namespace Pulumi.Kubernetes.Types.Outputs.FlowControl
       /// <summary>
         /// `matchingPrecedence` is used to choose among the FlowSchemas that match a given request.
         /// The chosen FlowSchema is among those with the numerically lowest (which we take to be
-        /// logically highest) MatchingPrecedence.  Each MatchingPrecedence value must be
-        /// non-negative. Note that if the precedence is not specified or zero, it will be set to
-        /// 1000 as default.
+        /// logically highest) MatchingPrecedence.  Each MatchingPrecedence value must be ranged in
+        /// [1,10000]. Note that if the precedence is not specified, it will be set to 1000 as
+        /// default.
         /// </summary>
       public readonly int MatchingPrecedence;
 
@@ -27885,21 +27885,23 @@ namespace Pulumi.Kubernetes.Types.Outputs.Networking
   namespace V1
   {
     /// <summary>
-    /// IPBlock describes a particular CIDR (Ex. "192.168.1.1/24") that is allowed to the pods
-    /// matched by a NetworkPolicySpec's podSelector. The except entry describes CIDRs that should
-    /// not be included within this rule.
+    /// IPBlock describes a particular CIDR (Ex. "192.168.1.1/24","2001:db9::/64") that is allowed
+    /// to the pods matched by a NetworkPolicySpec's podSelector. The except entry describes CIDRs
+    /// that should not be included within this rule.
     /// </summary>
     [OutputType]
     public sealed class IPBlock
     {
       /// <summary>
-        /// CIDR is a string representing the IP Block Valid examples are "192.168.1.1/24"
+        /// CIDR is a string representing the IP Block Valid examples are "192.168.1.1/24" or
+        /// "2001:db9::/64"
         /// </summary>
       public readonly string Cidr;
 
       /// <summary>
         /// Except is a slice of CIDRs that should not be included within an IP Block Valid examples
-        /// are "192.168.1.1/24" Except values will be rejected if they are outside the CIDR range
+        /// are "192.168.1.1/24" or "2001:db9::/64" Except values will be rejected if they are
+        /// outside the CIDR range
         /// </summary>
       public readonly ImmutableArray<string> Except;
 
@@ -30653,12 +30655,10 @@ namespace Pulumi.Kubernetes.Types.Outputs.Rbac
 
       /// <summary>
         /// NonResourceURLs is a set of partial urls that a user should have access to.  *s are
-        /// allowed, but only as the full, final step in the path This name is intentionally
-        /// different than the internal type so that the DefaultConvert works nicely and because the
-        /// ordering may be different. Since non-resource URLs are not namespaced, this field is
-        /// only applicable for ClusterRoles referenced from a ClusterRoleBinding. Rules can either
-        /// apply to API resources (such as "pods" or "secrets") or non-resource URL paths (such as
-        /// "/api"),  but not both.
+        /// allowed, but only as the full, final step in the path Since non-resource URLs are not
+        /// namespaced, this field is only applicable for ClusterRoles referenced from a
+        /// ClusterRoleBinding. Rules can either apply to API resources (such as "pods" or
+        /// "secrets") or non-resource URL paths (such as "/api"),  but not both.
         /// </summary>
       public readonly ImmutableArray<string> NonResourceURLs;
 
