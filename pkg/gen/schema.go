@@ -164,23 +164,14 @@ func PulumiSchema(swagger map[string]interface{}) pschema.PackageSpec {
 					ObjectTypeSpec:     objectSpec,
 					DeprecationMessage: kind.DeprecationComment(),
 					InputProperties:    map[string]pschema.PropertySpec{},
-					Defaults:           map[string]pschema.DefaultSpec{},
 				}
 
 				for _, p := range kind.RequiredInputProperties() {
 					resourceSpec.InputProperties[p.name] = genPropertySpec(p)
 					resourceSpec.RequiredInputs = append(resourceSpec.RequiredInputs, p.name)
-
-					if dv := p.DefaultValue(); dv != "" {
-						resourceSpec.Defaults[p.name] = genDefaultValue(dv)
-					}
 				}
 				for _, p := range kind.OptionalInputProperties() {
 					resourceSpec.InputProperties[p.name] = genPropertySpec(p)
-
-					if dv := p.DefaultValue(); dv != "" {
-						resourceSpec.Defaults[p.name] = genDefaultValue(dv)
-					}
 				}
 
 				for _, t := range kind.Aliases() {
@@ -212,11 +203,8 @@ func genPropertySpec(p *Property) pschema.PropertySpec {
 	return pschema.PropertySpec{
 		Description: p.Comment(),
 		TypeSpec:    typ,
+		Default:     p.DefaultValue(),
 	}
-}
-
-func genDefaultValue(v string) pschema.DefaultSpec {
-	return pschema.DefaultSpec{Value: v}
 }
 
 func rawMessage(v interface{}) json.RawMessage {
