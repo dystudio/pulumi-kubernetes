@@ -152,7 +152,7 @@ func PulumiSchema(swagger map[string]interface{}) pschema.PackageSpec {
 
 				for _, p := range kind.Properties() {
 					objectSpec.Properties[p.name] = genPropertySpec(p)
-					objectSpec.Required = append(objectSpec.Required, p.name)
+					//objectSpec.Required = append(objectSpec.Required, p.name)
 				}
 
 				if kind.IsNested() {
@@ -203,7 +203,7 @@ func genPropertySpec(p *Property) pschema.PropertySpec {
 	return pschema.PropertySpec{
 		Description: p.Comment(),
 		TypeSpec:    typ,
-		Default:     p.DefaultValue(),
+		//Default:     p.DefaultValue(),
 	}
 }
 
