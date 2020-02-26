@@ -14225,7 +14225,7 @@ export namespace core {
       /**
        * TopologySpreadConstraints describes how a group of pods ought to spread across topology
        * domains. Scheduler will schedule pods in a way which abides by the constraints. This field
-       * is alpha-level and is only honored by clusters that enables the EvenPodsSpread feature. All
+       * is only honored by clusters that enable the EvenPodsSpread feature. All
        * topologySpreadConstraints are ANDed.
        */
       topologySpreadConstraints?: pulumi.Input<pulumi.Input<core.v1.TopologySpreadConstraint>[]>
@@ -16607,8 +16607,7 @@ export namespace core {
        * The UserName in Windows to run the entrypoint of the container process. Defaults to the
        * user specified in image metadata if unspecified. May also be set in PodSecurityContext. If
        * set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext
-       * takes precedence. This field is beta-level and may be disabled with the
-       * WindowsRunAsUserName feature flag.
+       * takes precedence.
        */
       runAsUserName?: pulumi.Input<string>
 
@@ -16691,7 +16690,7 @@ export namespace discovery {
        * The application protocol for this port. This field follows standard Kubernetes label
        * syntax. Un-prefixed names are reserved for IANA standard service names (as per RFC-6335 and
        * http://www.iana.org/assignments/service-names). Non-standard protocols should use prefixed
-       * names. Default is empty string.
+       * names such as mycompany.com/my-custom-protocol.
        */
       appProtocol?: pulumi.Input<string>
 

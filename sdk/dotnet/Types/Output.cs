@@ -19579,8 +19579,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core
       /// <summary>
         /// TopologySpreadConstraints describes how a group of pods ought to spread across topology
         /// domains. Scheduler will schedule pods in a way which abides by the constraints. This
-        /// field is alpha-level and is only honored by clusters that enables the EvenPodsSpread
-        /// feature. All topologySpreadConstraints are ANDed.
+        /// field is only honored by clusters that enable the EvenPodsSpread feature. All
+        /// topologySpreadConstraints are ANDed.
         /// </summary>
       public readonly ImmutableArray<Core.V1.TopologySpreadConstraint> TopologySpreadConstraints;
 
@@ -22918,8 +22918,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core
         /// The UserName in Windows to run the entrypoint of the container process. Defaults to the
         /// user specified in image metadata if unspecified. May also be set in PodSecurityContext.
         /// If set in both SecurityContext and PodSecurityContext, the value specified in
-        /// SecurityContext takes precedence. This field is beta-level and may be disabled with the
-        /// WindowsRunAsUserName feature flag.
+        /// SecurityContext takes precedence.
         /// </summary>
       public readonly string RunAsUserName;
 
@@ -23038,7 +23037,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Discovery
         /// The application protocol for this port. This field follows standard Kubernetes label
         /// syntax. Un-prefixed names are reserved for IANA standard service names (as per RFC-6335
         /// and http://www.iana.org/assignments/service-names). Non-standard protocols should use
-        /// prefixed names. Default is empty string.
+        /// prefixed names such as mycompany.com/my-custom-protocol.
         /// </summary>
       public readonly string AppProtocol;
 
